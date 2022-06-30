@@ -11,7 +11,7 @@ namespace Sporbarhet.Parentage.BenchmarkConsoleApp;
 [MemoryDiagnoser]
 public class OppositeHomozygoteBenchmarks
 {
-    private ZygosityDataset? ComparisonDataset;
+    private readonly ZygosityDataset? ComparisonDataset;
 
     public OppositeHomozygoteBenchmarks()
     {
@@ -37,15 +37,15 @@ public class OppositeHomozygoteBenchmarks
     [Benchmark]
     public void ComparisonUngroupedShortCircuitByte()
     {
-        var zygs = ComparisonDataset!.OffspringIds!.Concat(ComparisonDataset!.ParentIds!).Select(id => ComparisonDataset!.Zygosities![id]).ToArray();
-        ComputeCountsAllSingleThread(zygs, (byte)((double)ComparisonDataset.VariantCount! * 0.0035), Convert.ToByte);
+        var zygosities = ComparisonDataset!.OffspringIds!.Concat(ComparisonDataset!.ParentIds!).Select(id => ComparisonDataset!.Zygosities![id]).ToArray();
+        ComputeCountsAllSingleThread(zygosities, (byte)((double)ComparisonDataset.VariantCount! * 0.0035), Convert.ToByte);
     }
     
     [Benchmark]
     public void ComparisonUngroupedCompleteUInt16()
     {
-        var zygs = ComparisonDataset!.OffspringIds!.Concat(ComparisonDataset!.ParentIds!).Select(id => ComparisonDataset!.Zygosities![id]).ToArray();
-        ComputeCountsAllSingleThread(zygs, UInt16.MaxValue, Convert.ToUInt16);
+        var zygosities = ComparisonDataset!.OffspringIds!.Concat(ComparisonDataset!.ParentIds!).Select(id => ComparisonDataset!.Zygosities![id]).ToArray();
+        ComputeCountsAllSingleThread(zygosities, UInt16.MaxValue, Convert.ToUInt16);
     }
 
     /// <summary>
@@ -101,8 +101,8 @@ public class OppositeHomozygoteBenchmarks
     }
 
     /// <summary>
-    /// Computes the opposing homozygous loci counts (OH counts), up to a max of <paramref name="threshold"/>, between zygosities in group 1 and zygosities in group 2 and returns the counts as a two dimensional array.
-    /// The value at the (i,j)'th position in the output array gives the OH count between the i'th zygosity array in group 1 and the j'th zygosity array in group 2.
+    /// Computes the opposing homozygous loci counts (OH counts), up to a max of <paramref name="threshold"/>, between all zygosities and returns the counts as a two dimensional array.
+    /// The value at the (i,j)'th position in the output array gives the OH count between the i'th zygosity array and the j'th zygosity array.
     /// <br/>
     /// See <seealso cref="VectorOperations.IntersectionCount2(ReadOnlySpan{ulong}, ReadOnlySpan{ulong}, ReadOnlySpan{ulong}, ReadOnlySpan{ulong}, int)"/> for how the opposing homozygous loci count is computed.
     /// </summary>
@@ -113,11 +113,10 @@ public class OppositeHomozygoteBenchmarks
     /// The OH count type. The allowed values are <see cref="byte"/>, <see cref="UInt16"/>, <see cref="UInt32"/>, <see cref="UInt64"/>, <see cref="Int16"/>, <see cref="Int32"/>, and <see cref="Int64"/>.
     /// A smaller data type is preferred due to better memory efficiency, but it must also be large enough to hold all possible OH counts for the given dataset.
     /// </typeparam>
-    /// <param name="zygosities1">The zygosities of samples from group 1. For instance, group 1 can be the list of posed parents, and group 2 the list of posed offspring.</param>
-    /// <param name="zygosities2">The zygosities of sample from group 2. For instance, group 1 can be the list of posed parents, and group 2 the list of posed offspring.</param>
+    /// <param name="zygosities">The zygosities of samples.</param>
     /// <param name="threshold">The OH count threshold. If the OH count exceeds this value for a given pair of samples, the computation is terminated early for that pair.</param>
     /// <param name="convert">The function to convert from <see cref="int"/> counts to <typeparamref name="OH"/>.</param>
-    /// <returns>The opposing homozygous loci counts. The value at the (i,j)'th position gives the OH count between the zygosity of the i'th sample from group 1 and the zygosity of the j'th sample from group 2.</returns>
+    /// <returns>The opposing homozygous loci counts. The value at the (i,j)'th position gives the OH count between the i'th sample and the j'th sample.</returns>
     static OH[,] ComputeCountsAllSingleThread<OH>(IReadOnlyList<(BitArrayL32 AA, BitArrayL32 BB)> zygosities, OH threshold, Func<int, OH> convert)
         where OH : unmanaged
     {
@@ -151,7 +150,6 @@ public class OppositeHomozygoteBenchmarks
         //});
         return counts;
     }
-
 }
 
 public class Program

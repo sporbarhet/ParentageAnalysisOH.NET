@@ -54,24 +54,24 @@ public interface IBitSet<TInd, TSelf> : ICollection<TInd, TInd>, IReadOnlyList<b
     /// <summary>
     /// Whether any bits in this <see cref="IBitSet{TInd, TSelf}"/> are set.
     /// </summary>
-    /// <returns>Returns <see cref="true"/> if any bits are set, otherwise <see cref="false"/>.</returns>
+    /// <returns>Returns <see langword="true"/> if any bits are set, otherwise <see langword="false"/>.</returns>
     bool Any();
 
     /// <summary>
     /// Whether all bits in this <see cref="IBitSet{TInd, TSelf}"/> are set.
     /// </summary>
-    /// <returns>Returns <see cref="true"/> if all bits are set, otherwise <see cref="false"/>.</returns>
+    /// <returns>Returns <see langword="true"/> if all bits are set, otherwise <see langword="false"/>.</returns>
     bool All();
 
     /// <summary>
     /// Calculates the parity of bits in this <see cref="IBitSet{TInd, TSelf}"/>.
     /// The parity is a <see cref="bool"/> value denoting whether an odd number of bits are set or not.
     /// </summary>
-    /// <returns>Returns <see cref="true"/> if an odd number of bits are set, <see cref="false"/> if an even number of bits are set.</returns>
+    /// <returns>Returns <see langword="true"/> if an odd number of bits are set, <see langword="false"/> if an even number of bits are set.</returns>
     bool Parity();
 
     /// <summary>
-    /// Calculates the population count of this <see cref="IBitSet{TInd, TSelf}"/>. Meaning the number of bits set to <see cref="true"/>.
+    /// Calculates the population count of this <see cref="IBitSet{TInd, TSelf}"/>. Meaning the number of bits set to <see langword="true"/>.
     /// </summary>
     /// <returns>The population count of this <see cref="IBitSet{TInd, TSelf}"/>.</returns>
     TInd PopCount();

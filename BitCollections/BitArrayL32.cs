@@ -137,31 +137,31 @@ public struct BitArrayL32 : IBitArray<TInd, TWord, BitArrayL32>, IEnumerable<TIn
 
 
     /// <summary>
-    /// Sets all bits in this <see cref="BitArrayL32"/> to <see cref="false"/>.
+    /// Sets all bits in this <see cref="BitArrayL32"/> to <see langword="false"/>.
     /// </summary>
     public void Clear() => Words.Clear();
 
     /// <summary>
-    /// Sets the bit at the given position to <see cref="true"/>.
+    /// Sets the bit at the given position to <see langword="true"/>.
     /// </summary>
     /// <param name="item">The position of the given bit.</param>
     public void SetTrue(TInd item) => SetTrue(GetWordIndex(item), GetBitIndex(item));
 
     /// <summary>
-    /// Sets the bit at the given position to <see cref="true"/>.
+    /// Sets the bit at the given position to <see langword="true"/>.
     /// </summary>
     /// <param name="wordIndex">The array index for the word in which the bit resides.</param>
     /// <param name="bitIndex">The position of the bit in its word.</param>
     public void SetTrue(int wordIndex, int bitIndex) => Words[wordIndex] |= ONE << bitIndex;
 
     /// <summary>
-    /// Sets the bit at the given position to <see cref="false"/>.
+    /// Sets the bit at the given position to <see langword="false"/>.
     /// </summary>
     /// <param name="item">The position of the given bit.</param>
     public void SetFalse(TInd item) => SetFalse(GetWordIndex(item), GetBitIndex(item));
 
     /// <summary>
-    /// Sets the bit at the given position to <see cref="false"/>.
+    /// Sets the bit at the given position to <see langword="false"/>.
     /// </summary>
     /// <param name="wordIndex">The array index for the word in which the bit resides.</param>
     /// <param name="bitIndex">The position of the bit in its word.</param>
@@ -202,7 +202,7 @@ public struct BitArrayL32 : IBitArray<TInd, TWord, BitArrayL32>, IEnumerable<TIn
     /// </summary>
     /// <param name="wordIndex">The array index for the word in which the bit resides.</param>
     /// <param name="bitIndex">The position of the bit in its word.</param>
-    /// <returns>The value of the bit at the given position. Returns <see cref="true"/> if the bit is set, <see cref="false"/> if it is not set.</returns>
+    /// <returns>The value of the bit at the given position. Returns <see langword="true"/> if the bit is set, <see langword="false"/> if it is not set.</returns>
     public bool Get(int wordIndex, int bitIndex) => (Words[wordIndex] & ONE << bitIndex) != 0;
 
     /// <summary>

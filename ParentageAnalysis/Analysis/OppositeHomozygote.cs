@@ -9,47 +9,10 @@ using System.Runtime.CompilerServices;
 namespace Sporbarhet.Parentage.Analysis;
 
 /// <summary>
-/// OH - Opposite Homozygosity
-/// Based on the method by Ferdosi M. and Boerner V. <see href="http://www.sciencedirect.com/science/article/pii/S1871141314002625"/>
-/// with some additional performance improvements:
-/// <list type="bullet">
-/// <item>
-/// <description>Only compare parents against offspring.</description>
-/// </item>
-/// <item>
-/// <description>Early termination when the count threshold is exceeded. When a parentage test fails, we do not always need to know "how hard" it fails.</description>
-/// </item>
-/// <item>
-/// <description>Use bit arrays for efficient representation of the matching arrays.</description>
-/// </item>
-/// <item>
-/// <description>Use specialized machine instructions for matching (Avx2, popcnt) and best known algorithm (Harley-Seal <see href="https://arxiv.org/pdf/1611.07612.pdf"/>).
-/// Note: the Harley-Seal algorithm may only be more efficient when we are not utilizing early termination.</description>
-/// </item>
-/// <item>
-/// <description>Delaying the creation of certain arrays until they are needed, allowing us to reuse parts of memory.</description>
-/// </item>
-/// <item>
-/// <description>Multithreading.</description>
-/// </item>
-/// </list>
+/// Methods for computing the opposite homozygote counts between samples
 /// </summary>
 public static class OppositeHomozygote
 {
-    /// <summary>
-    /// </summary>
-    /// <typeparam name="ID"></typeparam>
-    /// <typeparam name="OH"></typeparam>
-    /// <param name="zygosities"></param>
-    /// <param name="threshold"></param>
-    /// <returns></returns>
-    public static (OH[,] Counts, bool Transposed) CountAll<ID, OH>(IDictionary<ID, (BitArrayL32 AA, BitArrayL32 BB)> zygosities, OH threshold, bool doFullCount = false)
-        where OH : unmanaged
-    {
-        var zygosityArray = zygosities.Values.ToArray();
-        return Count(zygosityArray, zygosityArray, threshold, doFullCount);
-    }
-
     /// <summary>
     /// Counts the opposing homozygous loci (OH count), up to a max of <paramref name="threshold"/>, between samples in group 1 and samples in group 2 and returns the counts as a two dimensional array.
     /// The value at the (i,j)'th position in the output array gives the OH count between the i'th sample in group 1 and the j'th sample in group 2.
@@ -66,7 +29,7 @@ public static class OppositeHomozygote
     /// A smaller data type is preferred due to better memory efficiency, but it must also be large enough to hold all possible OH counts for the given dataset.
     /// <br/>
     /// <example>
-    /// If <paramref name="doFullCount"/> is <see cref="false"/>, then a good choice for <typeparamref name="OH"/> is the smallest unsigned integer type which can represent the value of <paramref name="threshold"/>.
+    /// If <paramref name="doFullCount"/> is <see langword="false"/>, then a good choice for <typeparamref name="OH"/> is the smallest unsigned integer type which can represent the value of <paramref name="threshold"/>.
     /// For instance, if <paramref name="threshold"/> is <c>255</c>, then the best choice for <typeparamref name="OH"/> is <see cref="byte"/>.
     /// </example>
     /// </typeparam>
@@ -109,7 +72,7 @@ public static class OppositeHomozygote
     /// A smaller data type is preferred due to better memory efficiency, but it must also be large enough to hold all possible OH counts for the given dataset.
     /// <br/>
     /// <example>
-    /// If <paramref name="doFullCount"/> is <see cref="false"/>, then a good choice for <typeparamref name="OH"/> is the smallest unsigned integer type which can represent the value of <paramref name="threshold"/>.
+    /// If <paramref name="doFullCount"/> is <see langword="false"/>, then a good choice for <typeparamref name="OH"/> is the smallest unsigned integer type which can represent the value of <paramref name="threshold"/>.
     /// For instance, if <paramref name="threshold"/> is <c>255</c>, then the best choice for <typeparamref name="OH"/> is <see cref="byte"/>.
     /// </example>
     /// </typeparam>
@@ -130,7 +93,7 @@ public static class OppositeHomozygote
         // Count opposite homozygotes based on OH type
         return ((OH[,], bool))(threshold switch
         {
-            byte thresh => ((object,bool))ComputeCounts(zygosities1, zygosities2, doFullCount ? byte.MaxValue : thresh, Convert.ToByte),
+            byte thresh => ((object, bool))ComputeCounts(zygosities1, zygosities2, doFullCount ? byte.MaxValue : thresh, Convert.ToByte),
             UInt16 thresh => ComputeCounts(zygosities1, zygosities2, doFullCount ? UInt16.MaxValue : thresh, Convert.ToUInt16),
             UInt32 thresh => ComputeCounts(zygosities1, zygosities2, doFullCount ? UInt32.MaxValue : thresh, Convert.ToUInt32),
             UInt64 thresh => ComputeCounts(zygosities1, zygosities2, doFullCount ? UInt64.MaxValue : thresh, Convert.ToUInt64),
@@ -197,8 +160,101 @@ public static class OppositeHomozygote
     }
 
 
+    /// <inheritdoc cref="CountAll{ID, OH}(IReadOnlyList{(BitArrayL32 AA, BitArrayL32 BB)}, OH, bool)"/>
+    public static OH[,] CountAll<ID, OH>(IDictionary<ID, (BitArrayL32 AA, BitArrayL32 BB)> zygosities, OH threshold, bool doFullCount = false)
+        where OH : unmanaged => CountAll<ID, OH>(zygosities.Values.ToArray(), threshold, doFullCount);
 
 
+    /// <summary>
+    /// Counts the opposing homozygous loci (OH count), up to a max of <paramref name="threshold"/>, between all samples and returns the counts as a two dimensional array.
+    /// The value at the (i,j)'th position in the output array gives the OH count between the i'th sample and the j'th sample.
+    /// <br/>
+    /// See <seealso cref="VectorOperations.IntersectionCount2(ReadOnlySpan{ulong}, ReadOnlySpan{ulong}, ReadOnlySpan{ulong}, ReadOnlySpan{ulong}, int)"/> for how the opposing homozygous loci count is computed.
+    /// </summary>
+    /// <remarks>
+    /// Even if <paramref name="doFullCount"/> is set, note that <typeparamref name="OH"/> is used to store the OH counts.
+    /// Hence if this data type is not large to store the true counts, the return value will be clamped to the maximal value that that data type can hold.
+    /// </remarks>
+    /// <typeparam name="ID">The type of sample ids.</typeparam>
+    /// <typeparam name="OH">
+    /// The OH count type. The allowed values are <see cref="byte"/>, <see cref="UInt16"/>, <see cref="UInt32"/>, <see cref="UInt64"/>, <see cref="Int16"/>, <see cref="Int32"/>, and <see cref="Int64"/>.
+    /// A smaller data type is preferred due to better memory efficiency, but it must also be large enough to hold all possible OH counts for the given dataset.
+    /// <br/>
+    /// <example>
+    /// If <paramref name="doFullCount"/> is <see langword="false"/>, then a good choice for <typeparamref name="OH"/> is the smallest unsigned integer type which can represent the value of <paramref name="threshold"/>.
+    /// For instance, if <paramref name="threshold"/> is <c>255</c>, then the best choice for <typeparamref name="OH"/> is <see cref="byte"/>.
+    /// </example>
+    /// </typeparam>
+    /// <param name="zygosities">The collection of zygosities.</param>
+    /// <param name="threshold">The OH count threshold. If the OH count exceeds this value for a given pair of samples, the computation is terminated early for that pair. If <paramref name="doFullCount"/> is set, then this parameter is ignored.</param>
+    /// <param name="doFullCount">Whether to perform a full count, in effect ignoring the OH threshold, or not.</param>
+    /// <returns>The opposing homozygous loci counts. The value at the (i,j)'th position gives the OH count between the i'th sample and the j'th sample.</returns>
+    /// <exception cref="ArgumentException">Thrown if the <paramref name="zygosities"/> collection is empty.</exception>
+    public static OH[,] CountAll<ID, OH>(IReadOnlyList<(BitArrayL32 AA, BitArrayL32 BB)> zygosities, OH threshold, bool doFullCount = false)
+        where OH : unmanaged
+    {
+        if (zygosities.Count == 0)
+            throw new ArgumentException("Zygosities is empty.", nameof(zygosities));
+
+        // Count opposite homozygotes based on OH type
+        return (OH[,])(threshold switch
+        {
+            byte thresh => (object)ComputeCountsAll(zygosities, doFullCount ? byte.MaxValue : thresh, Convert.ToByte),
+            UInt16 thresh => ComputeCountsAll(zygosities, doFullCount ? UInt16.MaxValue : thresh, Convert.ToUInt16),
+            UInt32 thresh => ComputeCountsAll(zygosities, doFullCount ? UInt32.MaxValue : thresh, Convert.ToUInt32),
+            UInt64 thresh => ComputeCountsAll(zygosities, doFullCount ? UInt64.MaxValue : thresh, Convert.ToUInt64),
+            Int16 thresh => ComputeCountsAll(zygosities, doFullCount ? Int16.MaxValue : thresh, Convert.ToInt16),
+            Int32 thresh => ComputeCountsAll(zygosities, doFullCount ? Int32.MaxValue : thresh, Convert.ToInt32),
+            Int64 thresh => ComputeCountsAll(zygosities, doFullCount ? Int64.MaxValue : thresh, Convert.ToInt64),
+            _ => throw new ArgumentException($"The type parameter {nameof(OH)} must be one of the types {typeof(byte)}, {typeof(UInt16)},{typeof(UInt32)},{typeof(UInt64)},{typeof(Int16)},{typeof(Int32)},or {typeof(Int64)}, but the type {typeof(OH)} was given.", nameof(OH)),
+        });
+    }
+
+    /// <summary>
+    /// Computes the opposing homozygous loci counts (OH counts), up to a max of <paramref name="threshold"/>, between all zygosities and returns the counts as a two dimensional array.
+    /// The value at the (i,j)'th position in the output array gives the OH count between the i'th zygosity array and the j'th zygosity array.
+    /// <br/>
+    /// See <seealso cref="VectorOperations.IntersectionCount2(ReadOnlySpan{ulong}, ReadOnlySpan{ulong}, ReadOnlySpan{ulong}, ReadOnlySpan{ulong}, int)"/> for how the opposing homozygous loci count is computed.
+    /// </summary>
+    /// <remarks>
+    /// The algorithm performs faster if the largest of the zygosity arrays is passed as <paramref name="zygosities1"/>.
+    /// </remarks>
+    /// <typeparam name="OH">
+    /// The OH count type. The allowed values are <see cref="byte"/>, <see cref="UInt16"/>, <see cref="UInt32"/>, <see cref="UInt64"/>, <see cref="Int16"/>, <see cref="Int32"/>, and <see cref="Int64"/>.
+    /// A smaller data type is preferred due to better memory efficiency, but it must also be large enough to hold all possible OH counts for the given dataset.
+    /// </typeparam>
+    /// <param name="zygosities">The zygosities of samples.</param>
+    /// <param name="threshold">The OH count threshold. If the OH count exceeds this value for a given pair of samples, the computation is terminated early for that pair.</param>
+    /// <param name="convert">The function to convert from <see cref="int"/> counts to <typeparamref name="OH"/>.</param>
+    /// <returns>The opposing homozygous loci counts. The value at the (i,j)'th position gives the OH count between the i'th sample and the j'th sample.</returns>
+    public static OH[,] ComputeCountsAll<OH>(IReadOnlyList<(BitArrayL32 AA, BitArrayL32 BB)> zygosities, OH threshold, Func<int, OH> convert)
+        where OH : unmanaged
+    {
+        int markerCount = zygosities[0].AA.Count;
+        int thresholdInt = Convert.ToInt32(threshold);
+
+        /// Whether we should ignore the threshold and just do a full count or not
+        bool ignoreThreshold = thresholdInt * 32 > markerCount; //Very approximate
+
+        OH[,] counts = new OH[zygosities.Count, zygosities.Count];
+
+        // PERF: This does not evenly distribute the work load across the threads.
+        Parallel.For(0, zygosities.Count - 1, i1 =>
+        {
+            (var AA1, var BB1) = zygosities[i1];
+            // Iterate over samples after i1
+            for (int i2 = i1 + 1; i2 < zygosities.Count; i2++)
+            {
+                (var AA2, var BB2) = zygosities[i2];
+                int sum = ignoreThreshold ?
+                    VectorOperations.IntersectionCount2(AA1.Words, BB2.Words, AA2.Words, BB1.Words) :
+                    VectorOperations.IntersectionCount2(AA1.Words, BB2.Words, AA2.Words, BB1.Words, thresholdInt); // short-circuit
+
+                counts[i2, i1] = counts[i1, i2] = convert(Math.Min(sum, thresholdInt));
+            }
+        });
+        return counts;
+    }
 
     #region old implementation
     public static OH[,] CountAll<OH>(IReadOnlyList<Zygosity[]> zygosities, OH threshold, bool doFullCount = false)
@@ -289,8 +345,8 @@ public static class OppositeHomozygote
     /// The masks are assumed to have sufficient capacity and to be set to zero beforehand.
     /// </remarks>
     /// <param name="zygosities">The array of zygosity values.</param>
-    /// <param name="AA">The homozygous AA mask bitarray. This mask will be <see cref="true"/> at the <c>i</c>'th position if and only if <c><paramref name="zygosities"/>[i]</c> is <see cref="Zygosity.AA"/>.</param>
-    /// <param name="BB">The homozygous BB mask bitarray. This mask will be <see cref="true"/> at the <c>i</c>'th position if and only if <c><paramref name="zygosities"/>[i]</c> is <see cref="Zygosity.BB"/>.</param>
+    /// <param name="AA">The homozygous AA mask bitarray. This mask will be <see langword="true"/> at the <c>i</c>'th position if and only if <c><paramref name="zygosities"/>[i]</c> is <see cref="Zygosity.AA"/>.</param>
+    /// <param name="BB">The homozygous BB mask bitarray. This mask will be <see langword="true"/> at the <c>i</c>'th position if and only if <c><paramref name="zygosities"/>[i]</c> is <see cref="Zygosity.BB"/>.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static void SetHomozygosityMasks(Zygosity[] zygosities, BitArrayL32 AA, BitArrayL32 BB)
     {

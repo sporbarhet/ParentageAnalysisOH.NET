@@ -1,10 +1,22 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
+    <!-- NuGet Package -->
+    <PackageId>ParentageAnalysisOH.NET</PackageId>
+    <Version>0.1.0</Version>
+    <Authors>Sporbarhet AS, Fredrik Bakke</Authors>
+    <Company>Sporbarhet AS</Company>
+    <PackageDescription>A library for parentage anlaysis using efficiently computed opposing homozygote counts of a sample set.</PackageDescription>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/sporbarhet/ParentageAnalysisOH.NET</RepositoryUrl>
+
+    <!-- Project -->
+    <OutputType>Library</OutputType>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <RootNamespace>Sporbarhet.Parentage</RootNamespace>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>

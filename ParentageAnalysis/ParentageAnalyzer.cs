@@ -156,6 +156,30 @@ public class ParentageAnalyzer
     #endregion Process with merge
 
 
-    public Task MergeParentGenedataAsync(int chromosomeSet, string inStub1, string inStub2, string outStub, FileType outType = FileType.Binary, MergeMode mergeMode = MergeMode.Default, bool tryFlip = true, bool deleteIntermediateFiles = true)
-    => PlinkService.MergeAsync(chromosomeSet, inStub1, inStub2, outStub, outType, mergeMode, tryFlip, deleteIntermediateFiles);
+    public Task MergeFileSetsAsync(int chromosomeSet, string inStub1, string inStub2, string outStub, FileType outType = FileType.Binary, MergeMode mergeMode = MergeMode.Default, bool tryFlip = true, bool convertIfPedMap = true, bool deleteIntermediateFiles = true)
+    {
+        string tmpInStub1 = inStub1, tmpInStub2 = inStub2;
+        if (convertIfPedMap)
+        {
+            var type1 = FileTypes.GetFileTypes(inStub1);
+            if (type1.Contains(FileType.PedMap) && !(type1.Contains(FileType.Binary) || type1.Contains(FileType.Pfile) || type1.Contains(FileType.Bpfile)))
+                PlinkService.ConvertAsync(inStub1, tmpInStub1 = inStub1 + "_convert", FileType.Binary);
+
+            var type2 = FileTypes.GetFileTypes(inStub2);
+            if (type2.Contains(FileType.PedMap) && !(type2.Contains(FileType.Binary) || type2.Contains(FileType.Pfile) || type2.Contains(FileType.Bpfile)))
+                PlinkService.ConvertAsync(inStub2, tmpInStub2 = inStub2 + "_convert", FileType.Binary);
+        }
+
+        try
+        {
+            return PlinkService.MergeAsync(chromosomeSet, tmpInStub1, tmpInStub2, outStub, outType, mergeMode, tryFlip, deleteIntermediateFiles);
+        }
+        finally
+        {
+            if (tmpInStub1 != inStub1)
+                PlinkUtility.DeleteFilesExceptInfo(tmpInStub1);
+            if (tmpInStub2 != inStub2)
+                PlinkUtility.DeleteFilesExceptInfo(tmpInStub2);
+        }
+    }
 }

@@ -72,7 +72,7 @@ public static partial class PlinkFiles
     /// </remarks>
     /// <param name="path">The file path to the PLINK .het file.</param>
     /// <param name="sep">The column separator used in the file. Defaults to <see cref="hetSeparator"/>.</param>
-    /// <param name="header">Specifies whether the file contains a header line or not. Defaults to <see cref="true"/>.</param>
+    /// <param name="header">Specifies whether the file contains a header line or not. Defaults to <see langword="true"/>.</param>
     /// <param name="retries">The number of attempts before the method gives up on accessing the file.</param>
     /// <param name="baseRetrySleepMs">The base number of milliseconds that is waited before reattempting to access the file.</param>
     /// <returns>A <see cref="DataFrame"/> containing the information in the .het file.</returns>

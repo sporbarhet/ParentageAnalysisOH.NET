@@ -13,7 +13,6 @@ public static class HarleySeal
     }
 
     /// <summary>
-
     /// </summary>
     /// <remarks>
     /// This is a compromise between early termination and Harley-Seal.
