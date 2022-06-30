@@ -40,7 +40,10 @@ public interface IPlinkService
     /// <br/>
     /// The intermediate files are a het file, a recode allele file and a file of samples with poor heterozygosity if any.</param>
     Task ApplyQcHetAsync(int chromosomeSet, string inStub, string outStub, FileType outType, QualityControl qc, double hetStdDevs, bool deleteIntermediateFiles = true);
+    
     Task ExtractAsync(int chromosomeSet, string targetStub, string sourcePath, string outStub, FileType outType, bool deleteIntermediateFiles = true);
 
     Task MergeAsync(int chromosomeSet, string targetStub, string sourceStub, string outStub, FileType outType = FileType.Binary, MergeMode mergeMode = MergeMode.Default, bool tryFlip = true, bool deleteIntermediateFiles = true);
+
+    Task ConvertAsync(string inStub, string outStub, FileType outType);
 }

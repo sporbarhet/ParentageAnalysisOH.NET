@@ -150,7 +150,6 @@ public class OppositeHomozygoteBenchmarks
         //});
         return counts;
     }
-
 }
 
 public class Program

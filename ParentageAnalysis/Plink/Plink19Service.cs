@@ -8,13 +8,13 @@ using System.Globalization;
 
 namespace Sporbarhet.Parentage.Plink;
 
-public class PlinkService : IPlinkService
+public class Plink19Service : IPlinkService
 {
     private ILogger? Logger { get; }
 
     private PlinkIO PlinkIO { get; }
 
-    public PlinkService(PlinkIO plinkIO, ILogger? logger = null)
+    public Plink19Service(PlinkIO plinkIO, ILogger? logger = null)
     {
         Logger = logger;
         PlinkIO = plinkIO;
@@ -163,6 +163,20 @@ Heterozygosity bounds (mean ± {multipleStdDevsPoorHet} stddevs):
         [FileType.PedMap] = "merge",
     };
 
+    /// <summary>
+    /// Merges the source data set into the target data set using the specified <paramref name="mergeMode"/>.
+    /// If the input file sets are binary, and there are marker conflicts during merging, the method will try to flip the conflict markers if the <paramref name="tryFlip"/> is set. If there are marker conflicts after this step, the remaining conflicting markers will be excluded.
+    /// </summary>
+    /// <param name="chromosomeSet"></param>
+    /// <param name="targetStub"></param>
+    /// <param name="sourceStub"></param>
+    /// <param name="outStub"></param>
+    /// <param name="outType"></param>
+    /// <param name="mergeMode"></param>
+    /// <param name="tryFlip"></param>
+    /// <param name="deleteIntermediateFiles"></param>
+    /// <returns></returns>
+    /// <exception cref="FileNotFoundException"></exception>
     public async Task MergeAsync(int chromosomeSet, string targetStub, string sourceStub, string outStub, FileType outType = FileType.Binary, MergeMode mergeMode = MergeMode.Default, bool tryFlip = true, bool deleteIntermediateFiles = true)
     {
         using var logScope = Logger?.BeginScope("Merging \"{}\" and \"{}\"", targetStub, sourceStub);
@@ -177,7 +191,7 @@ Heterozygosity bounds (mean ± {multipleStdDevsPoorHet} stddevs):
         await PlinkIO.CallWithAsync(targetStub, targetType, outStub, outType, $"--{mergeTypeKV.Value} \"{sourceStub}\" --merge-mode {(int)mergeMode}".AddChromosomeSetArgument(chromosomeSet));
 
         if (!File.Exists(outStub + "-merge.missnp"))
-            return; //Success! //BUG: if input is not binary, this file will not be created even if the operation was not successful! //TODO: convert and try again (we can use a special merge mode in this case to hopefully speed up PLINK)
+            return; //Success or ped+map input. If input is ped+map, this file will not be created even if the operation was not successful! //TODO: convert and try again (we can use a special merge mode in this case to hopefully speed up PLINK)
 
         string targetFlip = targetStub + "_flip";
         string sourceExclude = sourceStub + "_missnp_exclude";
@@ -266,4 +280,7 @@ Heterozygosity bounds (mean ± {multipleStdDevsPoorHet} stddevs):
                 File.Delete(keepPath);
         }
     }
+
+    public Task ConvertAsync(string inStub, string outStub, FileType outType) => PlinkIO.CallWithAndCheckAsync(inStub, outStub, outType);
+    public Task ConvertAsync(string inStub, FileType inType, string outStub, FileType outType) => PlinkIO.CallWithAndCheckAsync(inStub, inType, outStub, outType);
 }
