@@ -1,5 +1,7 @@
 # ParentageAnalysisOH.NET
 
+[![](https://img.shields.io/nuget/dt/ParentageAnalysisOH.NET.svg)](https://www.nuget.org/packages/ParentageAnalysisOH.NET/) [![](https://img.shields.io/nuget/v/ParentageAnalysisOH.NET.svg)](https://www.nuget.org/packages/ParentageAnalysisOH.NET/)
+
 ## Prerequisites
 
 - Git
