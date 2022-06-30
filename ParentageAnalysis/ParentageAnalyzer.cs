@@ -169,17 +169,19 @@ public class ParentageAnalyzer
             if (type2.Contains(FileType.PedMap) && !(type2.Contains(FileType.Binary) || type2.Contains(FileType.Pfile) || type2.Contains(FileType.Bpfile)))
                 PlinkService.ConvertAsync(inStub2, tmpInStub2 = inStub2 + "_convert", FileType.Binary);
         }
-
         try
         {
             return PlinkService.MergeAsync(chromosomeSet, tmpInStub1, tmpInStub2, outStub, outType, mergeMode, tryFlip, deleteIntermediateFiles);
         }
         finally
         {
-            if (tmpInStub1 != inStub1)
-                PlinkUtility.DeleteFilesExceptInfo(tmpInStub1);
-            if (tmpInStub2 != inStub2)
-                PlinkUtility.DeleteFilesExceptInfo(tmpInStub2);
+            if (deleteIntermediateFiles)
+            {
+                if (tmpInStub1 != inStub1)
+                    PlinkUtility.DeleteFilesExceptInfo(tmpInStub1);
+                if (tmpInStub2 != inStub2)
+                    PlinkUtility.DeleteFilesExceptInfo(tmpInStub2);
+            }
         }
     }
 }
