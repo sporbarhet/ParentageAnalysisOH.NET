@@ -451,13 +451,13 @@ public struct BitArrayL32 : IBitArray<TInd, TWord, BitArrayL32>, IEnumerable<TIn
     #region operator overloads
     /// <inheritdoc cref="Not(BitArrayL32)"/>
     public static BitArrayL32 operator ~(BitArrayL32 a) => a.Not();
-    /// <inheritdoc cref="BitArrayL32.Or(BitArrayL32, BitArrayL32)"/>
+    /// <inheritdoc cref="Or(BitArrayL32, BitArrayL32)"/>
     public static BitArrayL32 operator |(BitArrayL32 a, BitArrayL32 b) => a.Or(b);
-    /// <inheritdoc cref="Not(BitArrayL32)"/>
+    /// <inheritdoc cref="And(BitArrayL32, BitArrayL32)"/>
     public static BitArrayL32 operator &(BitArrayL32 a, BitArrayL32 b) => a.And(b);
-    /// <inheritdoc cref="Not(BitArrayL32)"/>
+    /// <inheritdoc cref="Xor(BitArrayL32, BitArrayL32)"/>
     public static BitArrayL32 operator ^(BitArrayL32 a, BitArrayL32 b) => a.Xor(b);
-    /// <inheritdoc cref="Not(BitArrayL32)"/>
+    /// <inheritdoc cref="Equals(BitArrayL32)"/>
     public static bool operator ==(BitArrayL32 a, BitArrayL32 b) => a.Equals(b);
     public static bool operator !=(BitArrayL32 a, BitArrayL32 b) => !a.Equals(b);
     #endregion operator overloads
