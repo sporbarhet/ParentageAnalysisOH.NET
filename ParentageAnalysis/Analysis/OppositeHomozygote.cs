@@ -29,7 +29,7 @@ public static class OppositeHomozygote
     /// A smaller data type is preferred due to better memory efficiency, but it must also be large enough to hold all possible OH counts for the given dataset.
     /// <br/>
     /// <example>
-    /// If <paramref name="doFullCount"/> is <see cref="false"/>, then a good choice for <typeparamref name="OH"/> is the smallest unsigned integer type which can represent the value of <paramref name="threshold"/>.
+    /// If <paramref name="doFullCount"/> is <see langword="false"/>, then a good choice for <typeparamref name="OH"/> is the smallest unsigned integer type which can represent the value of <paramref name="threshold"/>.
     /// For instance, if <paramref name="threshold"/> is <c>255</c>, then the best choice for <typeparamref name="OH"/> is <see cref="byte"/>.
     /// </example>
     /// </typeparam>
@@ -72,7 +72,7 @@ public static class OppositeHomozygote
     /// A smaller data type is preferred due to better memory efficiency, but it must also be large enough to hold all possible OH counts for the given dataset.
     /// <br/>
     /// <example>
-    /// If <paramref name="doFullCount"/> is <see cref="false"/>, then a good choice for <typeparamref name="OH"/> is the smallest unsigned integer type which can represent the value of <paramref name="threshold"/>.
+    /// If <paramref name="doFullCount"/> is <see langword="false"/>, then a good choice for <typeparamref name="OH"/> is the smallest unsigned integer type which can represent the value of <paramref name="threshold"/>.
     /// For instance, if <paramref name="threshold"/> is <c>255</c>, then the best choice for <typeparamref name="OH"/> is <see cref="byte"/>.
     /// </example>
     /// </typeparam>
@@ -181,7 +181,7 @@ public static class OppositeHomozygote
     /// A smaller data type is preferred due to better memory efficiency, but it must also be large enough to hold all possible OH counts for the given dataset.
     /// <br/>
     /// <example>
-    /// If <paramref name="doFullCount"/> is <see cref="false"/>, then a good choice for <typeparamref name="OH"/> is the smallest unsigned integer type which can represent the value of <paramref name="threshold"/>.
+    /// If <paramref name="doFullCount"/> is <see langword="false"/>, then a good choice for <typeparamref name="OH"/> is the smallest unsigned integer type which can represent the value of <paramref name="threshold"/>.
     /// For instance, if <paramref name="threshold"/> is <c>255</c>, then the best choice for <typeparamref name="OH"/> is <see cref="byte"/>.
     /// </example>
     /// </typeparam>
@@ -345,8 +345,8 @@ public static class OppositeHomozygote
     /// The masks are assumed to have sufficient capacity and to be set to zero beforehand.
     /// </remarks>
     /// <param name="zygosities">The array of zygosity values.</param>
-    /// <param name="AA">The homozygous AA mask bitarray. This mask will be <see cref="true"/> at the <c>i</c>'th position if and only if <c><paramref name="zygosities"/>[i]</c> is <see cref="Zygosity.AA"/>.</param>
-    /// <param name="BB">The homozygous BB mask bitarray. This mask will be <see cref="true"/> at the <c>i</c>'th position if and only if <c><paramref name="zygosities"/>[i]</c> is <see cref="Zygosity.BB"/>.</param>
+    /// <param name="AA">The homozygous AA mask bitarray. This mask will be <see langword="true"/> at the <c>i</c>'th position if and only if <c><paramref name="zygosities"/>[i]</c> is <see cref="Zygosity.AA"/>.</param>
+    /// <param name="BB">The homozygous BB mask bitarray. This mask will be <see langword="true"/> at the <c>i</c>'th position if and only if <c><paramref name="zygosities"/>[i]</c> is <see cref="Zygosity.BB"/>.</param>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static void SetHomozygosityMasks(Zygosity[] zygosities, BitArrayL32 AA, BitArrayL32 BB)
     {
