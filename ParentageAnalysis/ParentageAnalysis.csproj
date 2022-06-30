@@ -7,6 +7,7 @@
     <Authors>Sporbarhet AS, Fredrik Bakke</Authors>
     <Company>Sporbarhet AS</Company>
     <PackageDescription>A library for parentage anlaysis using efficiently computed opposing homozygote counts of a sample set.</PackageDescription>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/sporbarhet/ParentageAnalysisOH.NET</RepositoryUrl>
 
     <!-- Project -->
