@@ -15,9 +15,9 @@ This sections describes how to run the benchmarking project `BenchmarkConsoleApp
 
 ### Setup
 
-1. Extract the files ZIP archive at `ParentageAnalysisOH.NET\BenchmarkConsoleApp` into the `ParentageAnalysisOH.NET\BenchmarkConsoleApp\Datasets` folder.
+1. Extract the files from the ZIP archive at `ParentageAnalysisOH.NET\BenchmarkConsoleApp` into the `ParentageAnalysisOH.NET\BenchmarkConsoleApp\Datasets` folder before running the benchmarking application.
 
 ### Running Notes
 
 - The BenchmarkConsoleApp project can only run in Release mode.
-- Which dataset is being benchmarked is currently chosen through commenting and uncommenting lines in the constructor of the OppositeHomozygoteBenchmarks class.
+- Which dataset is being benchmarked is chosen through commenting and uncommenting the appropriate lines in the constructor of the OppositeHomozygoteBenchmarks class.
