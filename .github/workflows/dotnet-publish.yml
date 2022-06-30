@@ -7,7 +7,7 @@ on:
 jobs:
   dotnet-publish:
     env:
-      PROJECT: "~/ParentageAnalysis/ParentageAnalysis.csproj"
+      PROJECT: "./ParentageAnalysis/ParentageAnalysis.csproj"
 
     runs-on: ubuntu-latest
 
