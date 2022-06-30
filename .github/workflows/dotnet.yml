@@ -1,0 +1,28 @@
+name: .NET
+
+on:
+  push:
+    branches: [ "prod" ]
+  pull_request:
+    branches: [ "prod" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v2
+      with:
+        dotnet-version: 6.0.x
+    - name: Restore dependencies
+      working-directory: ./ParentageAnalysisOH.NET
+      run: dotnet restore
+    - name: Build
+      working-directory: ./ParentageAnalysisOH.NET
+      run: dotnet build --no-restore
+#    - name: Test
+#      working-directory: ./ParentageAnalysisOH.NET
+#      run: dotnet test --no-build --verbosity normal
