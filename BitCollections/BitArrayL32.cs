@@ -16,8 +16,12 @@ namespace Sporbarhet.Parentage.BitCollections;
 /// </remarks>
 public struct BitArrayL32 : IBitArray<TInd, TWord, BitArrayL32>, IEnumerable<TInd>, IEnumerable<bool>, IEquatable<BitArrayL32>
 {
+    /// <inheritdoc/>
     public TWord[] Words { get; }
 
+    /// <summary>
+    /// The number of bits in this <see cref="BitArrayL32"/>.
+    /// </summary>
     public TInd Count => Words.Length << BIT_ADDR_SIZE;
 
     // Constants
@@ -33,8 +37,18 @@ public struct BitArrayL32 : IBitArray<TInd, TWord, BitArrayL32>, IEnumerable<TIn
     const int BIT_ADDR_MASK = (1 << BIT_ADDR_SIZE) - 1;
     const TWord MAX_BIT = ONE << BITS_PER_WORD - 1;
 
+    /// <summary>
+    /// A value indicating if this <see cref="BitArrayL32"/> is read-only. This property is always <see langword="false"/>.
+    /// </summary>
     public bool IsReadOnly => Words.IsReadOnly;
+    /// <summary>
+    /// An object that can be used to synchronize access to this <see cref="BitArrayL32"/>.
+    /// </summary>
     public object SyncRoot => Words.SyncRoot;
+    /// <summary>
+    /// Gets a value indicating whether this <see cref="BitArrayL32"/> has a fixed size.
+    /// This property is always <see langword="true"/>.
+    /// </summary>
     public bool IsFixedSize => Words.IsFixedSize;
 
     /// <summary>
@@ -225,7 +239,7 @@ public struct BitArrayL32 : IBitArray<TInd, TWord, BitArrayL32>, IEnumerable<TIn
     /// <inheritdoc/>
     public bool Contains(TInd item) => this[item];
 
-
+    /// <inheritdoc/>
     public BitArrayL32 Not(BitArrayL32 result)
     {
         if (Count != result.Count)
@@ -241,6 +255,7 @@ public struct BitArrayL32 : IBitArray<TInd, TWord, BitArrayL32>, IEnumerable<TIn
         return result;
     }
 
+    /// <inheritdoc/>
     public BitArrayL32 Or(BitArrayL32 other, BitArrayL32 result)
     {
         if (Count != other.Count)
@@ -260,6 +275,7 @@ public struct BitArrayL32 : IBitArray<TInd, TWord, BitArrayL32>, IEnumerable<TIn
         return result;
     }
 
+    /// <inheritdoc/>
     public BitArrayL32 And(BitArrayL32 other, BitArrayL32 result)
     {
         if (Count != other.Count)
@@ -280,6 +296,7 @@ public struct BitArrayL32 : IBitArray<TInd, TWord, BitArrayL32>, IEnumerable<TIn
         return result;
     }
 
+    /// <inheritdoc/>
     public BitArrayL32 Xor(BitArrayL32 other, BitArrayL32 result)
     {
         if (Count != other.Count)
@@ -301,6 +318,7 @@ public struct BitArrayL32 : IBitArray<TInd, TWord, BitArrayL32>, IEnumerable<TIn
     }
 
 
+    /// <inheritdoc/>
     public bool Any()
     {
         int i = 0;
@@ -315,6 +333,7 @@ public struct BitArrayL32 : IBitArray<TInd, TWord, BitArrayL32>, IEnumerable<TIn
         return false;
     }
 
+    /// <inheritdoc/>
     public bool All()
     {
         int i = 0;
@@ -331,6 +350,7 @@ public struct BitArrayL32 : IBitArray<TInd, TWord, BitArrayL32>, IEnumerable<TIn
     }
 
 
+    /// <inheritdoc/>
     public TInd PopCount()
     {
         TInd count = 0;
@@ -340,6 +360,7 @@ public struct BitArrayL32 : IBitArray<TInd, TWord, BitArrayL32>, IEnumerable<TIn
         return count;
     }
 
+    /// <inheritdoc/>
     public bool Parity()
     {
         TWord c = 0;
@@ -361,6 +382,7 @@ public struct BitArrayL32 : IBitArray<TInd, TWord, BitArrayL32>, IEnumerable<TIn
         return (BitOperations.PopCount(c) & 1) != 0;
     }
 
+    /// <inheritdoc/>
     public bool Equals(BitArrayL32 other)
     {
         if (Count != other.Count)
@@ -377,8 +399,10 @@ public struct BitArrayL32 : IBitArray<TInd, TWord, BitArrayL32>, IEnumerable<TIn
 
         return true;
     }
+    /// <inheritdoc/>
     public override bool Equals(object? obj) => obj is BitArrayL32 barr && Equals(barr);
 
+    /// <inheritdoc/>
     public override int GetHashCode() => HashCode.Combine(Words);
 
     IEnumerator IEnumerable.GetEnumerator() => throw new NotSupportedException();
@@ -425,16 +449,24 @@ public struct BitArrayL32 : IBitArray<TInd, TWord, BitArrayL32>, IEnumerable<TIn
 
 
     #region operator overloads
+    /// <inheritdoc cref="Not(BitArrayL32)"/>
     public static BitArrayL32 operator ~(BitArrayL32 a) => a.Not();
+    /// <inheritdoc cref="BitArrayL32.Or(BitArrayL32, BitArrayL32)"/>
     public static BitArrayL32 operator |(BitArrayL32 a, BitArrayL32 b) => a.Or(b);
+    /// <inheritdoc cref="Not(BitArrayL32)"/>
     public static BitArrayL32 operator &(BitArrayL32 a, BitArrayL32 b) => a.And(b);
+    /// <inheritdoc cref="Not(BitArrayL32)"/>
     public static BitArrayL32 operator ^(BitArrayL32 a, BitArrayL32 b) => a.Xor(b);
+    /// <inheritdoc cref="Not(BitArrayL32)"/>
     public static bool operator ==(BitArrayL32 a, BitArrayL32 b) => a.Equals(b);
     public static bool operator !=(BitArrayL32 a, BitArrayL32 b) => !a.Equals(b);
     #endregion operator overloads
 
+    /// <inheritdoc/>
     public BitArrayL32 CreateSimilarEmpty() => new BitArrayL32(Count);
+    /// <inheritdoc/>
     public BitArrayL32 CreateEmpty(int count) => new BitArrayL32(count);
+    /// <inheritdoc/>
     public BitArrayL32 Create(TWord[] arr) => new BitArrayL32(arr);
 
 
