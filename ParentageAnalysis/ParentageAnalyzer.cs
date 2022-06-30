@@ -156,7 +156,7 @@ public class ParentageAnalyzer
     #endregion Process with merge
 
 
-    public Task MergeParentGenedataAsync(int chromosomeSet, string inStub1, string inStub2, string outStub, FileType outType = FileType.Binary, MergeMode mergeMode = MergeMode.Default, bool tryFlip = true, bool convertIfPedMap = true, bool deleteIntermediateFiles = true)
+    public Task MergeFileSetsAsync(int chromosomeSet, string inStub1, string inStub2, string outStub, FileType outType = FileType.Binary, MergeMode mergeMode = MergeMode.Default, bool tryFlip = true, bool convertIfPedMap = true, bool deleteIntermediateFiles = true)
     {
         string tmpInStub1 = inStub1, tmpInStub2 = inStub2;
         if (convertIfPedMap)
