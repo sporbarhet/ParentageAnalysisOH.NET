@@ -29,7 +29,7 @@ jobs:
       #   run: dotnet test --no-build --verbosity normal
 
       - name: Pack
-        run: dotnet pack $env:PROJECT --no-build --no-restore
+        run: dotnet pack $PROJECT --no-build --no-restore
 
       - name: Publish
-        run: dotnet nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{secrets.NUGET_API_KEY}}
+        run: dotnet nuget push **\*.nupkg -Source 'https://api.nuget.org/v3/index.json' -ApiKey ${{ secrets.NUGET_API_KEY }}
