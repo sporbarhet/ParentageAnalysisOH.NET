@@ -3,7 +3,7 @@
 [![](https://img.shields.io/nuget/v/ParentageAnalysisOH.NET.svg)](https://www.nuget.org/packages/ParentageAnalysisOH.NET/)
 [![](https://img.shields.io/nuget/dt/ParentageAnalysisOH.NET.svg)](https://www.nuget.org/packages/ParentageAnalysisOH.NET/)
 
-A library for parentage anlaysis using efficiently computed opposing homozygote counts of a sample set.
+A library for parentage anlaysis using efficiently computed opposing homozygote counts.
 
 ## Prerequisites
 
