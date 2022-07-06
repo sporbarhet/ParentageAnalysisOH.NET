@@ -1,0 +1,421 @@
+// Validating benchmarks:
+// ***** BenchmarkRunner: Start   *****
+// ***** Found 4 benchmark(s) in total *****
+// ***** Building 1 exe(s) in Parallel: Start   *****
+// start dotnet restore  /p:UseSharedCompilation=false /p:BuildInParallel=false /m:1 /p:Deterministic=true /p:Optimize=true in C:\Users\frebakke\source\repos\ParentageAnalysisOH.NET\BenchmarkConsoleApp\bin\Release\net6.0\213ca647-9d86-4b3e-be82-caf5d37e9ed1
+// command took 1,03s and exited with 0
+// start dotnet build -c Release  --no-restore /p:UseSharedCompilation=false /p:BuildInParallel=false /m:1 /p:Deterministic=true /p:Optimize=true in C:\Users\frebakke\source\repos\ParentageAnalysisOH.NET\BenchmarkConsoleApp\bin\Release\net6.0\213ca647-9d86-4b3e-be82-caf5d37e9ed1
+// command took 11,74s and exited with 1
+// start dotnet build -c Release  --no-restore --no-dependencies /p:UseSharedCompilation=false /p:BuildInParallel=false/m:1 /p:Deterministic=true /p:Optimize=true in C:\Users\frebakke\source\repos\ParentageAnalysisOH.NET\BenchmarkConsoleApp\bin\Release\net6.0\213ca647-9d86-4b3e-be82-caf5d37e9ed1
+// command took 3,05s and exited with 0
+// ***** Done, took 00:00:16 (16.08 sec)   *****
+// Found 4 benchmarks:
+//   OppositeHomozygoteBenchmarks.ComparisonGroupedShortCircuitByte: Job-QZFFJD(IterationCount=20, LaunchCount=1, WarmupCount=4)
+//   OppositeHomozygoteBenchmarks.ComparisonGroupedCompleteUInt16: Job-QZFFJD(IterationCount=20, LaunchCount=1, WarmupCount=4)
+//   OppositeHomozygoteBenchmarks.ComparisonUngroupedShortCircuitByte: Job-QZFFJD(IterationCount=20, LaunchCount=1, WarmupCount=4)
+//   OppositeHomozygoteBenchmarks.ComparisonUngroupedCompleteUInt16: Job-QZFFJD(IterationCount=20, LaunchCount=1, WarmupCount=4)
+
+// **************************
+// Benchmark: OppositeHomozygoteBenchmarks.ComparisonGroupedShortCircuitByte: Job-QZFFJD(IterationCount=20, LaunchCount=1, WarmupCount=4)
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet "213ca647-9d86-4b3e-be82-caf5d37e9ed1.dll" --benchmarkName "Sporbarhet.Parentage.BenchmarkConsoleApp.OppositeHomozygoteBenchmarks.ComparisonGroupedShortCircuitByte" --job "IterationCount=20, LaunchCount=1, WarmupCount=4"--benchmarkId 0 in C:\Users\frebakke\source\repos\ParentageAnalysisOH.NET\BenchmarkConsoleApp\bin\Release\net6.0\213ca647-9d86-4b3e-be82-caf5d37e9ed1\bin\Release\net6.0
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET 6.0.6 (6.0.622.26707), X64 RyuJIT
+// GC=Concurrent Workstation
+// Job: Job-JOMSOB(IterationCount=20, LaunchCount=1, WarmupCount=4)
+
+OverheadJitting  1: 1 op, 189600.00 ns, 189.6000 us/op
+WorkloadJitting  1: 1 op, 247498800.00 ns, 247.4988 ms/op
+
+WorkloadPilot    1: 2 op, 403846200.00 ns, 201.9231 ms/op
+WorkloadPilot    2: 3 op, 606532600.00 ns, 202.1775 ms/op
+
+WorkloadWarmup   1: 3 op, 609904700.00 ns, 203.3016 ms/op
+WorkloadWarmup   2: 3 op, 607294400.00 ns, 202.4315 ms/op
+WorkloadWarmup   3: 3 op, 609281000.00 ns, 203.0937 ms/op
+WorkloadWarmup   4: 3 op, 608923000.00 ns, 202.9743 ms/op
+
+// BeforeActualRun
+WorkloadActual   1: 3 op, 602303700.00 ns, 200.7679 ms/op
+WorkloadActual   2: 3 op, 605579400.00 ns, 201.8598 ms/op
+WorkloadActual   3: 3 op, 602319600.00 ns, 200.7732 ms/op
+WorkloadActual   4: 3 op, 604868800.00 ns, 201.6229 ms/op
+WorkloadActual   5: 3 op, 604925300.00 ns, 201.6418 ms/op
+WorkloadActual   6: 3 op, 604364300.00 ns, 201.4548 ms/op
+WorkloadActual   7: 3 op, 604599700.00 ns, 201.5332 ms/op
+WorkloadActual   8: 3 op, 606063600.00 ns, 202.0212 ms/op
+WorkloadActual   9: 3 op, 607349200.00 ns, 202.4497 ms/op
+WorkloadActual  10: 3 op, 607837000.00 ns, 202.6123 ms/op
+WorkloadActual  11: 3 op, 608855200.00 ns, 202.9517 ms/op
+WorkloadActual  12: 3 op, 615734300.00 ns, 205.2448 ms/op
+WorkloadActual  13: 3 op, 608813200.00 ns, 202.9377 ms/op
+WorkloadActual  14: 3 op, 605315100.00 ns, 201.7717 ms/op
+WorkloadActual  15: 3 op, 614283100.00 ns, 204.7610 ms/op
+WorkloadActual  16: 3 op, 602196100.00 ns, 200.7320 ms/op
+WorkloadActual  17: 3 op, 606982300.00 ns, 202.3274 ms/op
+WorkloadActual  18: 3 op, 609990000.00 ns, 203.3300 ms/op
+WorkloadActual  19: 3 op, 601836900.00 ns, 200.6123 ms/op
+WorkloadActual  20: 3 op, 613659300.00 ns, 204.5531 ms/op
+
+// AfterActualRun
+WorkloadResult   1: 3 op, 602303700.00 ns, 200.7679 ms/op
+WorkloadResult   2: 3 op, 605579400.00 ns, 201.8598 ms/op
+WorkloadResult   3: 3 op, 602319600.00 ns, 200.7732 ms/op
+WorkloadResult   4: 3 op, 604868800.00 ns, 201.6229 ms/op
+WorkloadResult   5: 3 op, 604925300.00 ns, 201.6418 ms/op
+WorkloadResult   6: 3 op, 604364300.00 ns, 201.4548 ms/op
+WorkloadResult   7: 3 op, 604599700.00 ns, 201.5332 ms/op
+WorkloadResult   8: 3 op, 606063600.00 ns, 202.0212 ms/op
+WorkloadResult   9: 3 op, 607349200.00 ns, 202.4497 ms/op
+WorkloadResult  10: 3 op, 607837000.00 ns, 202.6123 ms/op
+WorkloadResult  11: 3 op, 608855200.00 ns, 202.9517 ms/op
+WorkloadResult  12: 3 op, 608813200.00 ns, 202.9377 ms/op
+WorkloadResult  13: 3 op, 605315100.00 ns, 201.7717 ms/op
+WorkloadResult  14: 3 op, 614283100.00 ns, 204.7610 ms/op
+WorkloadResult  15: 3 op, 602196100.00 ns, 200.7320 ms/op
+WorkloadResult  16: 3 op, 606982300.00 ns, 202.3274 ms/op
+WorkloadResult  17: 3 op, 609990000.00 ns, 203.3300 ms/op
+WorkloadResult  18: 3 op, 601836900.00 ns, 200.6123 ms/op
+WorkloadResult  19: 3 op, 613659300.00 ns, 204.5531 ms/op
+GC:  0 0 0 27290256 3
+Threading:  0 0 3
+
+// AfterAll
+// Benchmark Process 25420 has exited with code 0.
+
+Mean = 202.143 ms, StdErr = 0.273 ms (0.13%), N = 19, StdDev = 1.188 ms
+Min = 200.612 ms, Q1 = 201.494 ms, Median = 201.860 ms, Q3 = 202.775 ms, Max = 204.761 ms
+IQR = 1.281 ms, LowerFence = 199.572 ms, UpperFence = 204.697 ms
+ConfidenceInterval = [201.074 ms; 203.212 ms] (CI 99.9%), Margin = 1.069 ms (0.53% of Mean)
+Skewness = 0.7, Kurtosis = 2.66, MValue = 2
+
+// **************************
+// Benchmark: OppositeHomozygoteBenchmarks.ComparisonGroupedCompleteUInt16: Job-QZFFJD(IterationCount=20, LaunchCount=1, WarmupCount=4)
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet "213ca647-9d86-4b3e-be82-caf5d37e9ed1.dll" --benchmarkName "Sporbarhet.Parentage.BenchmarkConsoleApp.OppositeHomozygoteBenchmarks.ComparisonGroupedCompleteUInt16" --job "IterationCount=20, LaunchCount=1, WarmupCount=4" --benchmarkId 1 in C:\Users\frebakke\source\repos\ParentageAnalysisOH.NET\BenchmarkConsoleApp\bin\Release\net6.0\213ca647-9d86-4b3e-be82-caf5d37e9ed1\bin\Release\net6.0
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET 6.0.6 (6.0.622.26707), X64 RyuJIT
+// GC=Concurrent Workstation
+// Job: Job-TBZOCX(IterationCount=20, LaunchCount=1, WarmupCount=4)
+
+OverheadJitting  1: 1 op, 126600.00 ns, 126.6000 us/op
+WorkloadJitting  1: 1 op, 979632100.00 ns, 979.6321 ms/op
+
+OverheadJitting  2: 1 op, 300.00 ns, 300.0000 ns/op
+WorkloadJitting  2: 1 op, 980144200.00 ns, 980.1442 ms/op
+
+WorkloadWarmup   1: 1 op, 976699400.00 ns, 976.6994 ms/op
+WorkloadWarmup   2: 1 op, 974515200.00 ns, 974.5152 ms/op
+WorkloadWarmup   3: 1 op, 984401300.00 ns, 984.4013 ms/op
+WorkloadWarmup   4: 1 op, 968676900.00 ns, 968.6769 ms/op
+
+// BeforeActualRun
+WorkloadActual   1: 1 op, 977713300.00 ns, 977.7133 ms/op
+WorkloadActual   2: 1 op, 1079857900.00 ns, 1.0799 s/op
+WorkloadActual   3: 1 op, 1000858100.00 ns, 1.0009 s/op
+WorkloadActual   4: 1 op, 962484900.00 ns, 962.4849 ms/op
+WorkloadActual   5: 1 op, 978964800.00 ns, 978.9648 ms/op
+WorkloadActual   6: 1 op, 990516000.00 ns, 990.5160 ms/op
+WorkloadActual   7: 1 op, 980465400.00 ns, 980.4654 ms/op
+WorkloadActual   8: 1 op, 978133400.00 ns, 978.1334 ms/op
+WorkloadActual   9: 1 op, 1014368900.00 ns, 1.0144 s/op
+WorkloadActual  10: 1 op, 969968600.00 ns, 969.9686 ms/op
+WorkloadActual  11: 1 op, 966083500.00 ns, 966.0835 ms/op
+WorkloadActual  12: 1 op, 977706300.00 ns, 977.7063 ms/op
+WorkloadActual  13: 1 op, 970486900.00 ns, 970.4869 ms/op
+WorkloadActual  14: 1 op, 975301500.00 ns, 975.3015 ms/op
+WorkloadActual  15: 1 op, 1035599300.00 ns, 1.0356 s/op
+WorkloadActual  16: 1 op, 972026400.00 ns, 972.0264 ms/op
+WorkloadActual  17: 1 op, 1022912700.00 ns, 1.0229 s/op
+WorkloadActual  18: 1 op, 985783000.00 ns, 985.7830 ms/op
+WorkloadActual  19: 1 op, 995639900.00 ns, 995.6399 ms/op
+WorkloadActual  20: 1 op, 987371100.00 ns, 987.3711 ms/op
+
+// AfterActualRun
+WorkloadResult   1: 1 op, 977713300.00 ns, 977.7133 ms/op
+WorkloadResult   2: 1 op, 1000858100.00 ns, 1.0009 s/op
+WorkloadResult   3: 1 op, 962484900.00 ns, 962.4849 ms/op
+WorkloadResult   4: 1 op, 978964800.00 ns, 978.9648 ms/op
+WorkloadResult   5: 1 op, 990516000.00 ns, 990.5160 ms/op
+WorkloadResult   6: 1 op, 980465400.00 ns, 980.4654 ms/op
+WorkloadResult   7: 1 op, 978133400.00 ns, 978.1334 ms/op
+WorkloadResult   8: 1 op, 1014368900.00 ns, 1.0144 s/op
+WorkloadResult   9: 1 op, 969968600.00 ns, 969.9686 ms/op
+WorkloadResult  10: 1 op, 966083500.00 ns, 966.0835 ms/op
+WorkloadResult  11: 1 op, 977706300.00 ns, 977.7063 ms/op
+WorkloadResult  12: 1 op, 970486900.00 ns, 970.4869 ms/op
+WorkloadResult  13: 1 op, 975301500.00 ns, 975.3015 ms/op
+WorkloadResult  14: 1 op, 972026400.00 ns, 972.0264 ms/op
+WorkloadResult  15: 1 op, 1022912700.00 ns, 1.0229 s/op
+WorkloadResult  16: 1 op, 985783000.00 ns, 985.7830 ms/op
+WorkloadResult  17: 1 op, 995639900.00 ns, 995.6399 ms/op
+WorkloadResult  18: 1 op, 987371100.00 ns, 987.3711 ms/op
+GC:  0 0 0 18097424 1
+Threading:  0 0 1
+
+// AfterAll
+// Benchmark Process 13196 has exited with code 0.
+
+Mean = 983.710 ms, StdErr = 3.812 ms (0.39%), N = 18, StdDev = 16.171 ms
+Min = 962.485 ms, Q1 = 972.845 ms, Median = 978.549 ms, Q3 = 989.730 ms, Max = 1,022.913 ms
+IQR = 16.885 ms, LowerFence = 947.518 ms, UpperFence = 1,015.057 ms
+ConfidenceInterval = [968.597 ms; 998.823 ms] (CI 99.9%), Margin = 15.113 ms (1.54% of Mean)
+Skewness = 0.96, Kurtosis = 3.05, MValue = 2
+
+// **************************
+// Benchmark: OppositeHomozygoteBenchmarks.ComparisonUngroupedShortCircuitByte: Job-QZFFJD(IterationCount=20, LaunchCount=1, WarmupCount=4)
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet "213ca647-9d86-4b3e-be82-caf5d37e9ed1.dll" --benchmarkName "Sporbarhet.Parentage.BenchmarkConsoleApp.OppositeHomozygoteBenchmarks.ComparisonUngroupedShortCircuitByte" --job "IterationCount=20, LaunchCount=1, WarmupCount=4" --benchmarkId 2 in C:\Users\frebakke\source\repos\ParentageAnalysisOH.NET\BenchmarkConsoleApp\bin\Release\net6.0\213ca647-9d86-4b3e-be82-caf5d37e9ed1\bin\Release\net6.0
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET 6.0.6 (6.0.622.26707), X64 RyuJIT
+// GC=Concurrent Workstation
+// Job: Job-VPYMKE(IterationCount=20, LaunchCount=1, WarmupCount=4)
+
+OverheadJitting  1: 1 op, 108200.00 ns, 108.2000 us/op
+WorkloadJitting  1: 1 op, 522961300.00 ns, 522.9613 ms/op
+
+OverheadJitting  2: 1 op, 300.00 ns, 300.0000 ns/op
+WorkloadJitting  2: 1 op, 473039800.00 ns, 473.0398 ms/op
+
+WorkloadWarmup   1: 1 op, 468620900.00 ns, 468.6209 ms/op
+WorkloadWarmup   2: 1 op, 472355200.00 ns, 472.3552 ms/op
+WorkloadWarmup   3: 1 op, 468165000.00 ns, 468.1650 ms/op
+WorkloadWarmup   4: 1 op, 471996000.00 ns, 471.9960 ms/op
+
+// BeforeActualRun
+WorkloadActual   1: 1 op, 471628300.00 ns, 471.6283 ms/op
+WorkloadActual   2: 1 op, 472404600.00 ns, 472.4046 ms/op
+WorkloadActual   3: 1 op, 469181100.00 ns, 469.1811 ms/op
+WorkloadActual   4: 1 op, 473847000.00 ns, 473.8470 ms/op
+WorkloadActual   5: 1 op, 471717200.00 ns, 471.7172 ms/op
+WorkloadActual   6: 1 op, 469837900.00 ns, 469.8379 ms/op
+WorkloadActual   7: 1 op, 468669100.00 ns, 468.6691 ms/op
+WorkloadActual   8: 1 op, 477623300.00 ns, 477.6233 ms/op
+WorkloadActual   9: 1 op, 473621600.00 ns, 473.6216 ms/op
+WorkloadActual  10: 1 op, 490057300.00 ns, 490.0573 ms/op
+WorkloadActual  11: 1 op, 476954100.00 ns, 476.9541 ms/op
+WorkloadActual  12: 1 op, 471644600.00 ns, 471.6446 ms/op
+WorkloadActual  13: 1 op, 472237600.00 ns, 472.2376 ms/op
+WorkloadActual  14: 1 op, 471319300.00 ns, 471.3193 ms/op
+WorkloadActual  15: 1 op, 476078200.00 ns, 476.0782 ms/op
+WorkloadActual  16: 1 op, 474538800.00 ns, 474.5388 ms/op
+WorkloadActual  17: 1 op, 470521500.00 ns, 470.5215 ms/op
+WorkloadActual  18: 1 op, 471357700.00 ns, 471.3577 ms/op
+WorkloadActual  19: 1 op, 478204200.00 ns, 478.2042 ms/op
+WorkloadActual  20: 1 op, 473205300.00 ns, 473.2053 ms/op
+
+// AfterActualRun
+WorkloadResult   1: 1 op, 471628300.00 ns, 471.6283 ms/op
+WorkloadResult   2: 1 op, 472404600.00 ns, 472.4046 ms/op
+WorkloadResult   3: 1 op, 469181100.00 ns, 469.1811 ms/op
+WorkloadResult   4: 1 op, 473847000.00 ns, 473.8470 ms/op
+WorkloadResult   5: 1 op, 471717200.00 ns, 471.7172 ms/op
+WorkloadResult   6: 1 op, 469837900.00 ns, 469.8379 ms/op
+WorkloadResult   7: 1 op, 468669100.00 ns, 468.6691 ms/op
+WorkloadResult   8: 1 op, 477623300.00 ns, 477.6233 ms/op
+WorkloadResult   9: 1 op, 473621600.00 ns, 473.6216 ms/op
+WorkloadResult  10: 1 op, 476954100.00 ns, 476.9541 ms/op
+WorkloadResult  11: 1 op, 471644600.00 ns, 471.6446 ms/op
+WorkloadResult  12: 1 op, 472237600.00 ns, 472.2376 ms/op
+WorkloadResult  13: 1 op, 471319300.00 ns, 471.3193 ms/op
+WorkloadResult  14: 1 op, 476078200.00 ns, 476.0782 ms/op
+WorkloadResult  15: 1 op, 474538800.00 ns, 474.5388 ms/op
+WorkloadResult  16: 1 op, 470521500.00 ns, 470.5215 ms/op
+WorkloadResult  17: 1 op, 471357700.00 ns, 471.3577 ms/op
+WorkloadResult  18: 1 op, 478204200.00 ns, 478.2042 ms/op
+WorkloadResult  19: 1 op, 473205300.00 ns, 473.2053 ms/op
+GC:  0 0 0 36229128 1
+Threading:  0 0 1
+
+// AfterAll
+// Benchmark Process 16856 has exited with code 0.
+
+Mean = 472.873 ms, StdErr = 0.635 ms (0.13%), N = 19, StdDev = 2.770 ms
+Min = 468.669 ms, Q1 = 471.339 ms, Median = 472.238 ms, Q3 = 474.193 ms, Max = 478.204 ms
+IQR = 2.854 ms, LowerFence = 467.057 ms, UpperFence = 478.474 ms
+ConfidenceInterval = [470.381 ms; 475.365 ms] (CI 99.9%), Margin = 2.492 ms (0.53% of Mean)
+Skewness = 0.46, Kurtosis = 2.09, MValue = 2
+
+// **************************
+// Benchmark: OppositeHomozygoteBenchmarks.ComparisonUngroupedCompleteUInt16: Job-QZFFJD(IterationCount=20, LaunchCount=1, WarmupCount=4)
+// *** Execute ***
+// Launch: 1 / 1
+// Execute: dotnet "213ca647-9d86-4b3e-be82-caf5d37e9ed1.dll" --benchmarkName "Sporbarhet.Parentage.BenchmarkConsoleApp.OppositeHomozygoteBenchmarks.ComparisonUngroupedCompleteUInt16" --job "IterationCount=20, LaunchCount=1, WarmupCount=4"--benchmarkId 3 in C:\Users\frebakke\source\repos\ParentageAnalysisOH.NET\BenchmarkConsoleApp\bin\Release\net6.0\213ca647-9d86-4b3e-be82-caf5d37e9ed1\bin\Release\net6.0
+// BeforeAnythingElse
+
+// Benchmark Process Environment Information:
+// Runtime=.NET 6.0.6 (6.0.622.26707), X64 RyuJIT
+// GC=Concurrent Workstation
+// Job: Job-QLARQR(IterationCount=20, LaunchCount=1, WarmupCount=4)
+
+OverheadJitting  1: 1 op, 113800.00 ns, 113.8000 us/op
+WorkloadJitting  1: 1 op, 2592594800.00 ns, 2.5926 s/op
+
+WorkloadWarmup   1: 1 op, 2617058900.00 ns, 2.6171 s/op
+WorkloadWarmup   2: 1 op, 2576826100.00 ns, 2.5768 s/op
+WorkloadWarmup   3: 1 op, 2594443200.00 ns, 2.5944 s/op
+WorkloadWarmup   4: 1 op, 2580908000.00 ns, 2.5809 s/op
+
+// BeforeActualRun
+WorkloadActual   1: 1 op, 2590748800.00 ns, 2.5907 s/op
+WorkloadActual   2: 1 op, 2656731700.00 ns, 2.6567 s/op
+WorkloadActual   3: 1 op, 2593928300.00 ns, 2.5939 s/op
+WorkloadActual   4: 1 op, 2633652200.00 ns, 2.6337 s/op
+WorkloadActual   5: 1 op, 2572917000.00 ns, 2.5729 s/op
+WorkloadActual   6: 1 op, 2582672500.00 ns, 2.5827 s/op
+WorkloadActual   7: 1 op, 2617241400.00 ns, 2.6172 s/op
+WorkloadActual   8: 1 op, 2589438600.00 ns, 2.5894 s/op
+WorkloadActual   9: 1 op, 2557871000.00 ns, 2.5579 s/op
+WorkloadActual  10: 1 op, 2608481700.00 ns, 2.6085 s/op
+WorkloadActual  11: 1 op, 2625333400.00 ns, 2.6253 s/op
+WorkloadActual  12: 1 op, 2710161400.00 ns, 2.7102 s/op
+WorkloadActual  13: 1 op, 2606879400.00 ns, 2.6069 s/op
+WorkloadActual  14: 1 op, 2587723800.00 ns, 2.5877 s/op
+WorkloadActual  15: 1 op, 2620132200.00 ns, 2.6201 s/op
+WorkloadActual  16: 1 op, 2643674800.00 ns, 2.6437 s/op
+WorkloadActual  17: 1 op, 2614133900.00 ns, 2.6141 s/op
+WorkloadActual  18: 1 op, 2707380800.00 ns, 2.7074 s/op
+WorkloadActual  19: 1 op, 2621703000.00 ns, 2.6217 s/op
+WorkloadActual  20: 1 op, 2663612700.00 ns, 2.6636 s/op
+
+// AfterActualRun
+WorkloadResult   1: 1 op, 2590748800.00 ns, 2.5907 s/op
+WorkloadResult   2: 1 op, 2656731700.00 ns, 2.6567 s/op
+WorkloadResult   3: 1 op, 2593928300.00 ns, 2.5939 s/op
+WorkloadResult   4: 1 op, 2633652200.00 ns, 2.6337 s/op
+WorkloadResult   5: 1 op, 2572917000.00 ns, 2.5729 s/op
+WorkloadResult   6: 1 op, 2582672500.00 ns, 2.5827 s/op
+WorkloadResult   7: 1 op, 2617241400.00 ns, 2.6172 s/op
+WorkloadResult   8: 1 op, 2589438600.00 ns, 2.5894 s/op
+WorkloadResult   9: 1 op, 2557871000.00 ns, 2.5579 s/op
+WorkloadResult  10: 1 op, 2608481700.00 ns, 2.6085 s/op
+WorkloadResult  11: 1 op, 2625333400.00 ns, 2.6253 s/op
+WorkloadResult  12: 1 op, 2606879400.00 ns, 2.6069 s/op
+WorkloadResult  13: 1 op, 2587723800.00 ns, 2.5877 s/op
+WorkloadResult  14: 1 op, 2620132200.00 ns, 2.6201 s/op
+WorkloadResult  15: 1 op, 2643674800.00 ns, 2.6437 s/op
+WorkloadResult  16: 1 op, 2614133900.00 ns, 2.6141 s/op
+WorkloadResult  17: 1 op, 2621703000.00 ns, 2.6217 s/op
+WorkloadResult  18: 1 op, 2663612700.00 ns, 2.6636 s/op
+GC:  0 0 0 72229128 1
+Threading:  0 0 1
+
+// AfterAll
+// Benchmark Process 27476 has exited with code 0.
+
+Mean = 2.610 s, StdErr = 0.007 s (0.26%), N = 18, StdDev = 0.028 s
+Min = 2.558 s, Q1 = 2.590 s, Median = 2.611 s, Q3 = 2.624 s, Max = 2.664 s
+IQR = 0.035 s, LowerFence = 2.538 s, UpperFence = 2.676 s
+ConfidenceInterval = [2.584 s; 2.637 s] (CI 99.9%), Margin = 0.027 s (1.02% of Mean)
+Skewness = 0.13, Kurtosis = 2.15, MValue = 2
+
+// ***** BenchmarkRunner: Finish  *****
+
+// * Export *
+  BenchmarkDotNet.Artifacts\results\Sporbarhet.Parentage.BenchmarkConsoleApp.OppositeHomozygoteBenchmarks-report.csv
+  BenchmarkDotNet.Artifacts\results\Sporbarhet.Parentage.BenchmarkConsoleApp.OppositeHomozygoteBenchmarks-report-github.md
+  BenchmarkDotNet.Artifacts\results\Sporbarhet.Parentage.BenchmarkConsoleApp.OppositeHomozygoteBenchmarks-report.html
+
+// * Detailed results *
+OppositeHomozygoteBenchmarks.ComparisonGroupedShortCircuitByte: Job-QZFFJD(IterationCount=20, LaunchCount=1, WarmupCount=4)
+Runtime = .NET 6.0.6 (6.0.622.26707), X64 RyuJIT; GC = Concurrent Workstation
+Mean = 202.143 ms, StdErr = 0.273 ms (0.13%), N = 19, StdDev = 1.188 ms
+Min = 200.612 ms, Q1 = 201.494 ms, Median = 201.860 ms, Q3 = 202.775 ms, Max = 204.761 ms
+IQR = 1.281 ms, LowerFence = 199.572 ms, UpperFence = 204.697 ms
+ConfidenceInterval = [201.074 ms; 203.212 ms] (CI 99.9%), Margin = 1.069 ms (0.53% of Mean)
+Skewness = 0.7, Kurtosis = 2.66, MValue = 2
+-------------------- Histogram --------------------
+[200.028 ms ; 205.345 ms) | @@@@@@@@@@@@@@@@@@@
+---------------------------------------------------
+
+OppositeHomozygoteBenchmarks.ComparisonGroupedCompleteUInt16: Job-QZFFJD(IterationCount=20, LaunchCount=1, WarmupCount=4)
+Runtime = .NET 6.0.6 (6.0.622.26707), X64 RyuJIT; GC = Concurrent Workstation
+Mean = 983.710 ms, StdErr = 3.812 ms (0.39%), N = 18, StdDev = 16.171 ms
+Min = 962.485 ms, Q1 = 972.845 ms, Median = 978.549 ms, Q3 = 989.730 ms, Max = 1,022.913 ms
+IQR = 16.885 ms, LowerFence = 947.518 ms, UpperFence = 1,015.057 ms
+ConfidenceInterval = [968.597 ms; 998.823 ms] (CI 99.9%), Margin = 15.113 ms (1.54% of Mean)
+Skewness = 0.96, Kurtosis = 3.05, MValue = 2
+-------------------- Histogram --------------------
+[954.386 ms ;   983.007 ms) | @@@@@@@@@@@
+[983.007 ms ; 1,028.827 ms) | @@@@@@@
+---------------------------------------------------
+
+OppositeHomozygoteBenchmarks.ComparisonUngroupedShortCircuitByte: Job-QZFFJD(IterationCount=20, LaunchCount=1, WarmupCount=4)
+Runtime = .NET 6.0.6 (6.0.622.26707), X64 RyuJIT; GC = Concurrent Workstation
+Mean = 472.873 ms, StdErr = 0.635 ms (0.13%), N = 19, StdDev = 2.770 ms
+Min = 468.669 ms, Q1 = 471.339 ms, Median = 472.238 ms, Q3 = 474.193 ms, Max = 478.204 ms
+IQR = 2.854 ms, LowerFence = 467.057 ms, UpperFence = 478.474 ms
+ConfidenceInterval = [470.381 ms; 475.365 ms] (CI 99.9%), Margin = 2.492 ms (0.53% of Mean)
+Skewness = 0.46, Kurtosis = 2.09, MValue = 2
+-------------------- Histogram --------------------
+[467.857 ms ; 479.567 ms) | @@@@@@@@@@@@@@@@@@@
+---------------------------------------------------
+
+OppositeHomozygoteBenchmarks.ComparisonUngroupedCompleteUInt16: Job-QZFFJD(IterationCount=20, LaunchCount=1, WarmupCount=4)
+Runtime = .NET 6.0.6 (6.0.622.26707), X64 RyuJIT; GC = Concurrent Workstation
+Mean = 2.610 s, StdErr = 0.007 s (0.26%), N = 18, StdDev = 0.028 s
+Min = 2.558 s, Q1 = 2.590 s, Median = 2.611 s, Q3 = 2.624 s, Max = 2.664 s
+IQR = 0.035 s, LowerFence = 2.538 s, UpperFence = 2.676 s
+ConfidenceInterval = [2.584 s; 2.637 s] (CI 99.9%), Margin = 0.027 s (1.02% of Mean)
+Skewness = 0.13, Kurtosis = 2.15, MValue = 2
+-------------------- Histogram --------------------
+[2.544 s ; 2.678 s) | @@@@@@@@@@@@@@@@@@
+---------------------------------------------------
+
+// * Summary *
+
+BenchmarkDotNet=v0.13.1, OS=Windows 10.0.22000
+12th Gen Intel Core i9-12900H, 1 CPU, 20 logical and 14 physical cores
+.NET SDK=7.0.100-preview.1.22110.4
+  [Host]     : .NET 6.0.6 (6.0.622.26707), X64 RyuJIT  [AttachedDebugger]
+  Job-QZFFJD : .NET 6.0.6 (6.0.622.26707), X64 RyuJIT
+
+IterationCount=20  LaunchCount=1  WarmupCount=4
+
+|                              Method |       Mean |    Error |   StdDev | Allocated |
+|------------------------------------ |-----------:|---------:|---------:|----------:|
+|   ComparisonGroupedShortCircuitByte |   202.1 ms |  1.07 ms |  1.19 ms |      9 MB |
+|     ComparisonGroupedCompleteUInt16 |   983.7 ms | 15.11 ms | 16.17 ms |     17 MB |
+| ComparisonUngroupedShortCircuitByte |   472.9 ms |  2.49 ms |  2.77 ms |     35 MB |
+|   ComparisonUngroupedCompleteUInt16 | 2,610.4 ms | 26.52 ms | 28.38 ms |     69 MB |
+
+// * Warnings *
+Environment
+  Summary -> Benchmark was executed with attached debugger
+
+// * Hints *
+Outliers
+  OppositeHomozygoteBenchmarks.ComparisonGroupedShortCircuitByte: IterationCount=20, LaunchCount=1, WarmupCount=4   -> 1 outlier  was  removed (205.24 ms)
+  OppositeHomozygoteBenchmarks.ComparisonGroupedCompleteUInt16: IterationCount=20, LaunchCount=1, WarmupCount=4     -> 2 outliers were removed (1.04 s, 1.08 s)
+  OppositeHomozygoteBenchmarks.ComparisonUngroupedShortCircuitByte: IterationCount=20, LaunchCount=1, WarmupCount=4 -> 1 outlier  was  removed (490.06 ms)
+  OppositeHomozygoteBenchmarks.ComparisonUngroupedCompleteUInt16: IterationCount=20, LaunchCount=1, WarmupCount=4   -> 2 outliers were removed (2.71 s, 2.71 s)
+
+// * Legends *
+  Mean      : Arithmetic mean of all measurements
+  Error     : Half of 99.9% confidence interval
+  StdDev    : Standard deviation of all measurements
+  Allocated : Allocated memory per single operation (managed only, inclusive, 1KB = 1024B)
+  1 ms      : 1 Millisecond (0.001 sec)
+
+// * Diagnostic Output - MemoryDiagnoser *
+
+
+// ***** BenchmarkRunner: End *****
+// ** Remained 0 benchmark(s) to run **
+Run time: 00:02:09 (129.12 sec), executed benchmarks: 4
+
+Global total time: 00:02:25 (145.21 sec), executed benchmarks: 4
+// * Artifacts cleanup *
+
+C:\Users\frebakke\source\repos\ParentageAnalysisOH.NET\BenchmarkConsoleApp\bin\Release\net6.0\BenchmarkConsoleApp.exe (process 24244) exited with code 0.
+To automatically close the console when debugging stops, enable Tools->Options->Debugging->Automatically close the console when debugging stops.
+Press any key to close this window . . .

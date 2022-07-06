@@ -156,6 +156,19 @@ public class ParentageAnalyzer
     #endregion Process with merge
 
 
+    /// <summary>
+    /// See also <see cref="IPlinkService.MergeAsync(int, string, string, string, FileType, MergeMode, bool, bool)"/>.
+    /// </summary>
+    /// <param name="chromosomeSet"></param>
+    /// <param name="inStub1"></param>
+    /// <param name="inStub2"></param>
+    /// <param name="outStub"></param>
+    /// <param name="outType"></param>
+    /// <param name="mergeMode"></param>
+    /// <param name="tryFlip"></param>
+    /// <param name="convertIfPedMap"></param>
+    /// <param name="deleteIntermediateFiles"></param>
+    /// <returns></returns>
     public Task MergeFileSetsAsync(int chromosomeSet, string inStub1, string inStub2, string outStub, FileType outType = FileType.Binary, MergeMode mergeMode = MergeMode.Default, bool tryFlip = true, bool convertIfPedMap = true, bool deleteIntermediateFiles = true)
     {
         string tmpInStub1 = inStub1, tmpInStub2 = inStub2;
