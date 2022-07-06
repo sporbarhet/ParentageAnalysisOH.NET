@@ -156,6 +156,19 @@ public class ParentageAnalyzer
     #endregion Process with merge
 
 
+    /// <summary>
+    /// See also <see cref="IPlinkService.MergeAsync(int, string, string, string, FileType, MergeMode, bool, bool)"/>.
+    /// </summary>
+    /// <param name="chromosomeSet"></param>
+    /// <param name="inStub1"></param>
+    /// <param name="inStub2"></param>
+    /// <param name="outStub"></param>
+    /// <param name="outType"></param>
+    /// <param name="mergeMode"></param>
+    /// <param name="tryFlip"></param>
+    /// <param name="convertIfPedMap"></param>
+    /// <param name="deleteIntermediateFiles"></param>
+    /// <returns></returns>
     public Task MergeFileSetsAsync(int chromosomeSet, string inStub1, string inStub2, string outStub, FileType outType = FileType.Binary, MergeMode mergeMode = MergeMode.Default, bool tryFlip = true, bool convertIfPedMap = true, bool deleteIntermediateFiles = true)
     {
         string tmpInStub1 = inStub1, tmpInStub2 = inStub2;
@@ -169,17 +182,19 @@ public class ParentageAnalyzer
             if (type2.Contains(FileType.PedMap) && !(type2.Contains(FileType.Binary) || type2.Contains(FileType.Pfile) || type2.Contains(FileType.Bpfile)))
                 PlinkService.ConvertAsync(inStub2, tmpInStub2 = inStub2 + "_convert", FileType.Binary);
         }
-
         try
         {
             return PlinkService.MergeAsync(chromosomeSet, tmpInStub1, tmpInStub2, outStub, outType, mergeMode, tryFlip, deleteIntermediateFiles);
         }
         finally
         {
-            if (tmpInStub1 != inStub1)
-                PlinkUtility.DeleteFilesExceptInfo(tmpInStub1);
-            if (tmpInStub2 != inStub2)
-                PlinkUtility.DeleteFilesExceptInfo(tmpInStub2);
+            if (deleteIntermediateFiles)
+            {
+                if (tmpInStub1 != inStub1)
+                    PlinkUtility.DeleteFilesExceptInfo(tmpInStub1);
+                if (tmpInStub2 != inStub2)
+                    PlinkUtility.DeleteFilesExceptInfo(tmpInStub2);
+            }
         }
     }
 }

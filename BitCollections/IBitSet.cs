@@ -31,6 +31,7 @@ public interface IBitSet<TInd, TSelf> : ICollection<TInd, TInd>, IReadOnlyList<b
     /// Performs a logical or operation between this <see cref="IBitSet{TInd, TSelf}"/> and <paramref name="other"/>, and places the result in <paramref name="result"/>.
     /// This can also be understood as taking the union of the two bit sets.
     /// </summary>
+    /// <param name="other">The other/second <see cref="IBitSet{TInd, TSelf}"/> to perform this operation on.</param>
     /// <param name="result">The bit set to set the result in.</param>
     /// <returns>The union of this <see cref="IBitSet{TInd, TSelf}"/> and <paramref name="other"/>.</returns>
     TSelf Or(TSelf other, TSelf result);
@@ -39,6 +40,7 @@ public interface IBitSet<TInd, TSelf> : ICollection<TInd, TInd>, IReadOnlyList<b
     /// Performs a logical and operation between this <see cref="IBitSet{TInd, TSelf}"/> and <paramref name="other"/>, and places the result in <paramref name="result"/>.
     /// This can also be understood as taking the intersection of the two bit sets.
     /// </summary>
+    /// <param name="other">The other/second <see cref="IBitSet{TInd, TSelf}"/> to perform this operation on.</param>
     /// <param name="result">The bit set to set the result in.</param>
     /// <returns>The intersection of this <see cref="IBitSet{TInd, TSelf}"/> and <paramref name="other"/>.</returns>
     TSelf And(TSelf other, TSelf result);
@@ -47,6 +49,7 @@ public interface IBitSet<TInd, TSelf> : ICollection<TInd, TInd>, IReadOnlyList<b
     /// Performs a logical exclusive or operation between this <see cref="IBitSet{TInd, TSelf}"/> and <paramref name="other"/>, and places the result in <paramref name="result"/>.
     /// This can also be understood as taking the symmetric difference of the two bit sets.
     /// </summary>
+    /// <param name="other">The other/second <see cref="IBitSet{TInd, TSelf}"/> to perform this operation on.</param>
     /// <param name="result">The bit set to set the result in.</param>
     /// <returns>The symmetric difference of this <see cref="IBitSet{TInd, TSelf}"/> and <paramref name="other"/>.</returns>
     TSelf Xor(TSelf other, TSelf result);

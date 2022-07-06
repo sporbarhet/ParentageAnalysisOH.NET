@@ -25,6 +25,7 @@ for (file in c(
     "Datasets/1000+5000 samples 15000 markers.raw",
     "Datasets/3000+3000 samples 15000 markers.raw",
     "Datasets/3000+3000 samples all markers.raw"
+    # "Datasets/300+30000 samples all markers.raw"
     )) {
     cat("Loading raw file", file, "...")
     raw <- load_raw(file)
@@ -32,12 +33,14 @@ for (file in c(
     cat("... raw file loaded. Starting OH counts ...\n")
     A <- +(zygosities == 0) # 0 maps to 1.0, all other values map to 0.0
     B <- +(zygosities == 2) # 2 maps to 1.0, all other values map to 0.0
-    for(i in 1:w) { # warmup
-        start_time <- Sys.time()
-        OH <- fastOH2(A, B)
-        # OH <- fastOHoriginal(zygosities)
-        elapsed <- difftime(Sys.time(), start_time, units = "secs")
-        cat("... warmup OH counts", i, "calculated in", round(elapsed, 3), "seconds ...\n")
+    if (w > 0) {
+        for(i in 1:w) { # warmup
+            start_time <- Sys.time()
+            OH <- fastOH2(A, B)
+            # OH <- fastOHoriginal(zygosities)
+            elapsed <- difftime(Sys.time(), start_time, units = "secs")
+            cat("... warmup OH counts", i, "calculated in", round(elapsed, 3), "seconds ...\n")
+        }
     }
 
     sum <- 0

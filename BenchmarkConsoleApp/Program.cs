@@ -30,17 +30,17 @@ public class OppositeHomozygoteBenchmarks
 
     [Benchmark]
     public void ComparisonGroupedShortCircuitByte() => ComputeCountsSingleThread(ComparisonDataset!.OffspringIds!.Select(id => ComparisonDataset!.Zygosities![id]).ToArray(), ComparisonDataset!.ParentIds!.Select(id => ComparisonDataset!.Zygosities![id]).ToArray(), (byte)((double)ComparisonDataset.VariantCount! * 0.0035), Convert.ToByte);
-    
+
     [Benchmark]
     public void ComparisonGroupedCompleteUInt16() => ComputeCountsSingleThread(ComparisonDataset!.OffspringIds!.Select(id => ComparisonDataset!.Zygosities![id]).ToArray(), ComparisonDataset!.ParentIds!.Select(id => ComparisonDataset!.Zygosities![id]).ToArray(), UInt16.MaxValue, Convert.ToUInt16);
-    
+
     [Benchmark]
     public void ComparisonUngroupedShortCircuitByte()
     {
         var zygosities = ComparisonDataset!.OffspringIds!.Concat(ComparisonDataset!.ParentIds!).Select(id => ComparisonDataset!.Zygosities![id]).ToArray();
         ComputeCountsAllSingleThread(zygosities, (byte)((double)ComparisonDataset.VariantCount! * 0.0035), Convert.ToByte);
     }
-    
+
     [Benchmark]
     public void ComparisonUngroupedCompleteUInt16()
     {
@@ -79,24 +79,34 @@ public class OppositeHomozygoteBenchmarks
 
 
         var range = (0, Item2: zygosities1.Count);
-        //Parallel.ForEach(Partitioner.Create(0, zygosities1.Count), (range, _) =>
-        //{
-        //    // Iterate over given range of group 1 samples
-        for (int i1 = range.Item1; i1 < range.Item2; i1++)
+        if (ignoreThreshold)
         {
-            (var AA1, var BB1) = zygosities1[i1];
-            // Iterate over all samples in group 2
-            for (int i2 = 0; i2 < zygosities2.Count; i2++)
+            for (int i1 = range.Item1; i1 < range.Item2; i1++)
             {
-                (var AA2, var BB2) = zygosities2[i2];
-                int sum = ignoreThreshold ?
-                    VectorOperations.IntersectionCount2(AA1.Words, BB2.Words, AA2.Words, BB1.Words) :
-                    VectorOperations.IntersectionCount2(AA1.Words, BB2.Words, AA2.Words, BB1.Words, thresholdInt); // short-circuit
-
-                counts[i1, i2] = convert(Math.Min(sum, thresholdInt));
+                (var AA1, var BB1) = zygosities1[i1];
+                // Iterate over all samples in group 2
+                for (int i2 = 0; i2 < zygosities2.Count; i2++)
+                {
+                    (var AA2, var BB2) = zygosities2[i2];
+                    int sum = VectorOperations.IntersectionCount2(AA1.Words, BB2.Words, AA2.Words, BB1.Words);
+                    counts[i1, i2] = convert(Math.Min(sum, thresholdInt));
+                }
             }
         }
-        //});
+        else
+        {
+            for (int i1 = range.Item1; i1 < range.Item2; i1++)
+            {
+                (var AA1, var BB1) = zygosities1[i1];
+                // Iterate over all samples in group 2
+                for (int i2 = 0; i2 < zygosities2.Count; i2++)
+                {
+                    (var AA2, var BB2) = zygosities2[i2];
+                    int sum = VectorOperations.IntersectionCount2(AA1.Words, BB2.Words, AA2.Words, BB1.Words, thresholdInt); // short-circuit
+                    counts[i1, i2] = convert(Math.Min(sum, thresholdInt));
+                }
+            }
+        }
         return counts;
     }
 
@@ -130,24 +140,38 @@ public class OppositeHomozygoteBenchmarks
 
 
         var range = (0, Item2: zygosities.Count - 1);
-        //Parallel.ForEach(Partitioner.Create(0, zygosities.Count - 1), (range, _) =>
-        //{
-        //    // Iterate over given range of samples
-        for (int i1 = range.Item1; i1 < range.Item2; i1++)
+        if (ignoreThreshold)
         {
-            (var AA1, var BB1) = zygosities[i1];
-            // Iterate over samples after i1
-            for (int i2 = i1 + 1; i2 < zygosities.Count; i2++)
+            for (int i1 = range.Item1; i1 < range.Item2; i1++)
             {
-                (var AA2, var BB2) = zygosities[i2];
-                int sum = ignoreThreshold ?
+                (var AA1, var BB1) = zygosities[i1];
+                // Iterate over samples after i1
+                for (int i2 = i1 + 1; i2 < zygosities.Count; i2++)
+                {
+                    (var AA2, var BB2) = zygosities[i2];
+                    int sum = ignoreThreshold ?
                     VectorOperations.IntersectionCount2(AA1.Words, BB2.Words, AA2.Words, BB1.Words) :
                     VectorOperations.IntersectionCount2(AA1.Words, BB2.Words, AA2.Words, BB1.Words, thresholdInt); // short-circuit
 
-                counts[i2, i1] = counts[i1, i2] = convert(Math.Min(sum, thresholdInt));
+                    counts[i2, i1] = counts[i1, i2] = convert(Math.Min(sum, thresholdInt));
+                }
             }
         }
-        //});
+        else
+        {
+            for (int i1 = range.Item1; i1 < range.Item2; i1++)
+            {
+                (var AA1, var BB1) = zygosities[i1];
+                // Iterate over samples after i1
+                for (int i2 = i1 + 1; i2 < zygosities.Count; i2++)
+                {
+                    (var AA2, var BB2) = zygosities[i2];
+                    int sum = VectorOperations.IntersectionCount2(AA1.Words, BB2.Words, AA2.Words, BB1.Words, thresholdInt); // short-circuit
+
+                    counts[i2, i1] = counts[i1, i2] = convert(Math.Min(sum, thresholdInt));
+                }
+            }
+        }
         return counts;
     }
 }
